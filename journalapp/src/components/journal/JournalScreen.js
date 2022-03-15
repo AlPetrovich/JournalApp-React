@@ -1,4 +1,5 @@
 import React from 'react'
+import { NoteScreen } from '../notes/NoteScreen'
 //import { NothingSelected } from './NothingSelected'
 import { Sidebar } from './Sidebar'
 
@@ -11,11 +12,10 @@ export const JournalScreen = () => {
         {/* Contenido Principal */}
         <main>
             {/* <NothingSelected /> */}
+            <NoteScreen />
         </main>
     </div>
   )
 }
 
 
-//NOTEAPPBAR
-//ESTRC Y HOMESCREEN
