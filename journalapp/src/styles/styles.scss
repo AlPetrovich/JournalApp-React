@@ -1,2 +1,9 @@
+//CONTIENE LAS REFERENCIAS
 
+@import './base/settings'; //variables colores
+@import './base/base'; // config * globales
 
+//COMPONENTES
+
+@import './components/auth'; //AuthRouter  -login - register
+@import './components/buttons'; //config botones globales
