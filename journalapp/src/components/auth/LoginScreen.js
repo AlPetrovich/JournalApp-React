@@ -1,14 +1,37 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import { useForm } from '../../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { login, startLoginEmailPassword } from '../../actions/auth';
 
 export const LoginScreen = () => {
+
+  //permite disparar nuestra accion desde cualquier lugar
+  const dispatch = useDispatch();
+
+  const [formValues, handleInputChange] = useForm({
+     email : 'nando@gmail.com',
+     password: '123456'
+   })
+
+  const { email , password } = formValues;
+
+  const handleLogin=(e)=>{
+     e.preventDefault();
+     //primer dispatch de una accion a mi store -- useDispatch
+     //1ero crear la accion - agruparlas en un archivo
+     //dispara la accion login recibe id y nombre, retornar type login y cuerpo con id y nombre
+    dispatch( startLoginEmailPassword( email, password) )
+
+   }
+
   return (
     <div>
         <h3 className='auth__title'>Login</h3>
 
-        <form>
-            <input className='auth__input' type="text" placeholder="Email" name="email"  autoComplete='off'/>
-            <input className='auth__input' type="password" placeholder="Password" name="password" />
+        <form onSubmit={ handleLogin }>
+            <input className='auth__input' type="text" placeholder="Email" name="email"  autoComplete='off' value={ email } onChange={handleInputChange}/>
+            <input className='auth__input' type="password" placeholder="Password" name="password" value={password} onChange={handleInputChange}/>
 
             <button
               type='submit'
