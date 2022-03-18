@@ -1,12 +1,15 @@
 import thunk from 'redux-thunk'
 import { authReducer } from '../reducers/authReducer';
 import { createStore, applyMiddleware , combineReducers, compose } from 'redux'
+import { uiReducer } from '../reducers/uiReducer';
 
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose ;//https://github.com/zalmoxisus/redux-devtools-extension#usage
 
+// -- --- -- rutas de reducers
 const reducers = combineReducers({
-    auth : authReducer
+    auth : authReducer,
+    ui : uiReducer
 })
 
 //createStore Recibe solamente 1 REDUCER, enviar referencia de un combineReducer
