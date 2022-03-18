@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import { useForm } from '../../hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { login, startLoginEmailPassword } from '../../actions/auth';
+import { startGoogleLogin, startLoginEmailPassword } from '../../actions/auth';
 
 export const LoginScreen = () => {
 
@@ -22,7 +22,11 @@ export const LoginScreen = () => {
      //1ero crear la accion - agruparlas en un archivo
      //dispara la accion login recibe id y nombre, retornar type login y cuerpo con id y nombre
     dispatch( startLoginEmailPassword( email, password) )
+   }
 
+   //metodo cuando alguien quiera registrarse con Google
+   const handleGoogleLogin=()=>{
+     dispatch( startGoogleLogin() )
    }
 
   return (
@@ -43,7 +47,8 @@ export const LoginScreen = () => {
             <div className='auth__social-networks'>
                 <p>Login with social networks</p>
                   <div 
-                  className="google-btn"
+                    className="google-btn"
+                    onClick={ handleGoogleLogin }
                   >
                   <div className="google-icon-wrapper">
                       <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
