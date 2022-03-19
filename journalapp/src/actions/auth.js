@@ -1,6 +1,7 @@
 import { types } from "../types/types";
 import  { firebase, googleAuthProvider } from '../firebase/firebaseConfig'; 
 import { finishLoading, startLoading } from "./ui";
+import Swal from 'sweetalert2';
 
 //ASYNC -> regresa un callback
 //action para logearse
@@ -20,6 +21,7 @@ export const startLoginEmailPassword=(email, password) =>{
             .catch( e =>{
                 console.log(e);
                 dispatch( finishLoading() );
+                Swal.fire('Fail', e.message, 'error');
             })
     }
 }
@@ -41,7 +43,8 @@ export const startRegisterWithEmailPasswordName = (email, password, name ) =>{
                 );
             })
             .catch( e =>{
-                console.log(e)
+                console.log(e);
+                Swal.fire('Fail', e.message, 'error');
             })
     }
 }
@@ -71,5 +74,18 @@ export const login = (uid, displayName) => {
     }
 }
 
+//async porque disparo una instruccion de firebase que regresa una promesa
+export const startLogout=()=>{
 
-//configurar firebase con google
+    return async( dispatch )=>{
+        await firebase.auth().signOut();
+        dispatch( logout() );
+    }
+}
+
+//accion que va a borrar el uid y el displayname del STORE
+export const logout = () =>{
+    return{
+        type : types.logout  //restable el usuario a un obj vacio {}
+    }
+}
