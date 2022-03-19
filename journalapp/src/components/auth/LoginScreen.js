@@ -1,13 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import { useForm } from '../../hooks/useForm';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startGoogleLogin, startLoginEmailPassword } from '../../actions/auth';
 
 export const LoginScreen = () => {
 
   //permite disparar nuestra accion desde cualquier lugar
   const dispatch = useDispatch();
+
+  const { loading } = useSelector( state => state.ui) //loading && msgError
 
   const [formValues, handleInputChange] = useForm({
      email : 'nando@gmail.com',
@@ -20,7 +22,7 @@ export const LoginScreen = () => {
      e.preventDefault();
      //primer dispatch de una accion a mi store -- useDispatch
      //1ero crear la accion - agruparlas en un archivo
-     //dispara la accion login recibe id y nombre, retornar type login y cuerpo con id y nombre
+     
     dispatch( startLoginEmailPassword( email, password) )
    }
 
@@ -40,6 +42,7 @@ export const LoginScreen = () => {
             <button
               type='submit'
               className='btn btn-primary btn-block'
+              disabled={ loading }
             >
               Login
             </button>

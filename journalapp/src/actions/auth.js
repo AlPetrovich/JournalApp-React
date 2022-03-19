@@ -1,12 +1,48 @@
 import { types } from "../types/types";
 import  { firebase, googleAuthProvider } from '../firebase/firebaseConfig'; 
+import { finishLoading, startLoading } from "./ui";
 
-//primera accion asincrona es decir regresa un callback----
+//ASYNC -> regresa un callback
+//action para logearse
 export const startLoginEmailPassword=(email, password) =>{
 
     return( dispatch )=>{
+        //ui
+        dispatch(startLoading());
 
-        dispatch( login(123, 'Pedro')) //dispara accion login que se ejecuta en el store y modifica el state
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            //userCredential
+            .then(({ user })=>{
+                dispatch( login( user.uid, user.displayName ));
+                //ui
+                dispatch( finishLoading() );
+            })
+            .catch( e =>{
+                console.log(e);
+                dispatch( finishLoading() );
+            })
+    }
+}
+
+//Action async con email pass name
+export const startRegisterWithEmailPasswordName = (email, password, name ) =>{
+    //donde tenga el usuario grabado ya realizo el dispatch
+    return (dispatch) => {
+
+        //DEVUELVE UN PROMISE userCredential - autentica inmediatamente crea el usuario
+        firebase.auth().createUserWithEmailAndPassword( email, password )
+            //userCredential
+            .then( async({ user })=>{
+                //Grabamos displayname en userCredential ya que viene null, seteamos el enviado por parametro
+                await user.updateProfile({ displayName : name })
+               
+                dispatch(
+                    login(user.uid, user.displayName)
+                );
+            })
+            .catch( e =>{
+                console.log(e)
+            })
     }
 }
 

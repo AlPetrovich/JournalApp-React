@@ -2,13 +2,19 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
 import validator from 'validator';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeError, setError } from '../../actions/ui';
+import { startRegisterWithEmailPasswordName } from '../../actions/auth';
 
 export const RegisterScreen = () => {
 
   //disparador de acciones
   const dispatch = useDispatch();
+
+  //USAR UNA PARTE DEL STATE - REDUX - HOOK
+  //const state = useSelector( state => state.ui);
+  const { msgError } = useSelector( state => state.ui) //capturo mensaje del error de ui reducer del state
+ 
 
   const [values , handleInputChange] = useForm({
     name: 'Juan',
@@ -20,11 +26,12 @@ export const RegisterScreen = () => {
   //variables que maneja mi formulario
   const {name , email , password , password2} = values;
 
+
+  //Start register with email and password
   const handleRegister =(e) => {
     e.preventDefault();
-
     if( isFormValid() ){
-      console.log('formulario correcto')
+      dispatch( startRegisterWithEmailPasswordName(email, password, name))
     }
   }
 
@@ -52,10 +59,15 @@ export const RegisterScreen = () => {
         <h3 className='auth__title'>Register</h3>
 
         <form onSubmit={ handleRegister }>
-
-            <div className='auth__alert-error'>
-              Error!
-            </div>
+                {/* si tengo mensaje lo muestro */}
+            {
+              msgError &&
+              ( 
+                <div className='auth__alert-error'>
+                   {msgError}
+                </div>
+              )
+            }
 
             <input className='auth__input' type="text" placeholder="Name" name="name"  autoComplete='off' onChange={ handleInputChange }  value={name}/>
             <input className='auth__input' type="text" placeholder="Email" name="email"  autoComplete='off'onChange={ handleInputChange }  value={email}/>
@@ -78,3 +90,4 @@ export const RegisterScreen = () => {
     </div>
   )
 }
+
