@@ -2,6 +2,7 @@ import thunk from 'redux-thunk'
 import { authReducer } from '../reducers/authReducer';
 import { createStore, applyMiddleware , combineReducers, compose } from 'redux'
 import { uiReducer } from '../reducers/uiReducer';
+import { notesReducer } from '../reducers/notesReducer';
 
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose ;//https://github.com/zalmoxisus/redux-devtools-extension#usage
@@ -9,7 +10,8 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 // -- --- -- rutas de reducers
 const reducers = combineReducers({
     auth : authReducer,
-    ui : uiReducer
+    ui : uiReducer,
+    notes: notesReducer
 })
 
 //createStore Recibe solamente 1 REDUCER, enviar referencia de un combineReducer

@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
+import { startLoadingNotes } from '../actions/notes';
 
 export const AppRouter = () => {
 
@@ -26,11 +27,12 @@ export const AppRouter = () => {
   useEffect(() => {
    //crea un observable -> objeto especial que se puede disparar mas de una vez
    //estamos pendiente de la autenticacion
-   firebase.auth().onAuthStateChanged( (user)=>{ //uid displayname email
+   firebase.auth().onAuthStateChanged( async(user)=>{ //uid displayname email
       //si el objeto user tiene algo entonces pregunta si tiene uid, si es null sale de la condicion
       if( user?.uid ){
         dispatch( login( user.uid, user.displayName) );
         setIsLoggedIn( true );
+        dispatch( startLoadingNotes( user.uid )); //setea notas y las va cargando - notes
       }else{
         setIsLoggedIn( false );
       }
@@ -44,7 +46,7 @@ export const AppRouter = () => {
   if( cheking ){
     return(
       //agregar un componente de espera 
-      <h1>Loading...</h1>
+      <h1>Wait...</h1>
     )
   }
 
