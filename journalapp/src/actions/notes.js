@@ -23,6 +23,8 @@ export const startNewNote = ()=>{
         const doc = await db.collection(`${uid}/journal/notes`).add( newNote );
         //cuando obtengo info del documento quiero activar la nota
         dispatch(activeNote( doc.id, newNote ))
+        //renderiza nota nueva en pantalla
+        dispatch( addNewNote(doc.id, newNote ))
     }
 }
 
@@ -35,6 +37,18 @@ export const activeNote = (id, note)=>{
         }
     }
 }
+
+//accion para que inmediatamente creo la nota, aparezca en pantalla 
+export const addNewNote=( id, note ) =>{
+    return{
+        type : types.notesAddNew,
+        payload: {
+            id,
+            ...note
+        }
+    }
+}
+
 
 export const startLoadingNotes = (uid) =>{
     return async(dispatch) =>{
@@ -111,3 +125,31 @@ export const startUploading= ( file )=>{
         Swal.close();
     }
 }
+
+//ACCION DE BORRAR
+
+export const starDeleting = ( id ) =>{
+
+    return async(dispatch , getState)=>{
+
+        const uid = getState().auth.uid;
+        await db.doc(`${uid}/journal/notes/${ id }`).delete();
+
+        dispatch( deleteNote(id) );
+    }
+}
+
+//Accion que va a modificar mi store
+export const deleteNote = (id) =>{
+    return {
+        type: types.notesDelete,
+        payload: id
+    }
+}
+
+//accion de logout 
+export const noteLogout = () =>{
+    return{
+        type: types.notesLogoutCleaning
+    }
+};

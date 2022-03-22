@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { NotesAppBar } from './NotesAppBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import { activeNote } from '../../actions/notes';
+import { activeNote, starDeleting } from '../../actions/notes';
 
 export const NoteScreen = () => {
 
@@ -12,7 +12,7 @@ export const NoteScreen = () => {
   //1-referencia a la nota activa
   const { active: note  } = useSelector(state => state.notes)
   const [formValues , handleInputChange, reset ] = useForm( note ); 
-  const { body, title } = formValues;
+  const { body, title, id } = formValues;
 
   //Dejar la nota seleccionada
   //disparo la accion SOLO si el id es diferente
@@ -32,6 +32,9 @@ export const NoteScreen = () => {
    
   }, [formValues, dispatch])
   
+  const handleDelete=()=>{
+      dispatch(starDeleting(id) );
+  }
 
   return (
     <div className='notes__main-content'>
@@ -55,6 +58,10 @@ export const NoteScreen = () => {
               )
             }
         </div>
+
+        <button className='btn btn-danger' onClick={ handleDelete }>
+          Delete
+        </button>
 
     </div>
   )
