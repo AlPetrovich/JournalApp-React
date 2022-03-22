@@ -1,8 +1,11 @@
+import Swal from 'sweetalert2';
 import { db } from "../firebase/firebaseConfig";
-import { loadNotes } from "../helpers/loadNotes";
 import { types } from "../types/types";
+import { loadNotes } from "../helpers/loadNotes";
+import { fileUpload } from '../helpers/fileUpload';
 
 
+//react-journal
 
 //Tare async
 export const startNewNote = ()=>{
@@ -44,5 +47,67 @@ export const setNotes=( notes)=>{
     return{
         type: types.notesLoad,
         payload: notes
+    }
+}
+
+//accion para grabar en la base de datos
+export const startSaveNote =( note ) =>{
+
+    return async( dispatch, getState)=>{
+
+        const { uid } = getState().auth;
+
+        if( !note.url ){
+            delete note.url; //si no viene la nota borro la url
+        }
+
+        const noteToFirestore = { ...note };
+        delete noteToFirestore.id;
+
+        //se graba en firestore
+        await db.doc(`${ uid }/journal/notes/${ note.id }`).update( noteToFirestore );
+
+        dispatch( refreshNote( note.id, note ));
+        Swal.fire('Saved', note.title, 'success')
+
+    }
+}
+
+//accion que unicamente actualice del store, la nota que cambia, sincrona porque toda la info esta en local
+//id de la nota a hacer refresh
+export const refreshNote = ( id, note)=>{
+    return{
+        type : types.notesUpdated,
+        payload:{
+            id,
+            note:{
+                id,
+                ...note
+            }
+        }
+    }
+}
+
+//async
+export const startUploading= ( file )=>{
+
+    return async( dispatch, getState ) => {
+        //referencia a la nota activa
+        const { active:activeNote } = getState().notes;
+
+        Swal.fire({
+            title:'Uploading...',
+            text:'Please wait...',
+            allowOutsideClick: false,
+            onBeforeOpen: ()=>{
+                Swal.showLoading();
+            }
+        })
+
+        const fileUrl = await fileUpload( file );
+        activeNote.url = fileUrl;
+
+        dispatch( startSaveNote( activeNote) )
+        Swal.close();
     }
 }

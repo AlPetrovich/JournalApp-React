@@ -7,8 +7,9 @@ export const useForm = ( initialState = {} ) => {
     const [values, setValues] = useState(initialState);
 
     //seteamos el estado al inicial
-    const reset = () => {
-        setValues( initialState );
+    //cuando llamo al reset puede establecerle los valores que quiera al formulario
+    const reset = ( newFormState = initialState) => {
+        setValues( newFormState );
     }
 
     //selecionamos el input y agregamos el valor
