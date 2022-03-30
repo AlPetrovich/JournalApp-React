@@ -11,19 +11,19 @@ import { fileUpload } from '../helpers/fileUpload';
 export const startNewNote = ()=>{
     //getState tenemos acceso a T O D O el STATE similar a useSELECTOR //auth - notes - ui
     return async( dispatch, getState )=>{
-        //para grabar en firestore necesito el uid del user
+       /*  //para grabar en firestore necesito el uid del user */
         const { uid } = getState().auth;
-        //crear la nota que quiero grabar
+       /*  //crear la nota que quiero grabar */
         const newNote = {
             title : '',
             body: '',
             date: new Date().getTime()
         }
-        //ref db - firestore
+       /*  //ref db - firestore */
         const doc = await db.collection(`${uid}/journal/notes`).add( newNote );
-        //cuando obtengo info del documento quiero activar la nota
+       /*  //cuando obtengo info del documento quiero activar la nota */
         dispatch(activeNote( doc.id, newNote ))
-        //renderiza nota nueva en pantalla
+       /*  //renderiza nota nueva en pantalla */
         dispatch( addNewNote(doc.id, newNote ))
     }
 }
@@ -38,7 +38,7 @@ export const activeNote = (id, note)=>{
     }
 }
 
-//accion para que inmediatamente creo la nota, aparezca en pantalla 
+/* //accion para que inmediatamente creo la nota, aparezca en pantalla  */
 export const addNewNote=( id, note ) =>{
     return{
         type : types.notesAddNew,
@@ -72,7 +72,7 @@ export const startSaveNote =( note ) =>{
         const { uid } = getState().auth;
 
         if( !note.url ){
-            delete note.url; //si no viene la nota borro la url
+            delete note.url; /* //si no viene la nota borro la url */
         }
 
         const noteToFirestore = { ...note };

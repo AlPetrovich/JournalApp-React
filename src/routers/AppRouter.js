@@ -25,14 +25,14 @@ export const AppRouter = () => {
 
   //pendientes a la autenticacion -> mantener el user en el store
   useEffect(() => {
-   //crea un observable -> objeto especial que se puede disparar mas de una vez
-   //estamos pendiente de la autenticacion
-   firebase.auth().onAuthStateChanged( async(user)=>{ //uid displayname email
-      //si el objeto user tiene algo entonces pregunta si tiene uid, si es null sale de la condicion
+   /* crea un observable -> objeto especial que se puede disparar mas de una vez
+   estamos pendiente de la autenticacion */
+   firebase.auth().onAuthStateChanged( async(user)=>{ /* uid displayname email
+      //si el objeto user tiene algo entonces pregunta si tiene uid, si es null sale de la condicion */
       if( user?.uid ){
         dispatch( login( user.uid, user.displayName) );
         setIsLoggedIn( true );
-        dispatch( startLoadingNotes( user.uid )); //setea notas y las va cargando - notes
+        dispatch( startLoadingNotes( user.uid )); /* setea notas y las va cargando - notes */
       }else{
         setIsLoggedIn( false );
       }
@@ -45,7 +45,7 @@ export const AppRouter = () => {
   
   if( cheking ){
     return(
-      //agregar un componente de espera 
+      /* //agregar un componente de espera  */
       <h1>Wait...</h1>
     )
   }

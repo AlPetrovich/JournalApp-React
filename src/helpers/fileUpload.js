@@ -19,7 +19,6 @@ export const fileUpload = async ( file ) =>{
             const cloudResp = await resp.json();
             return cloudResp.secure_url;
         }else{
-            //console.log("error de cloudDin")
             throw await resp.json();
         }
         
@@ -27,5 +26,5 @@ export const fileUpload = async ( file ) =>{
         throw err;
     }
 
-    //return url de la imagen
+   /*  //return url de la imagen */
 }

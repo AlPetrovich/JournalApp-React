@@ -8,7 +8,7 @@ import { LoginScreen } from '../components/auth/LoginScreen';
 import { RegisterScreen } from '../components/auth/RegisterScreen';
 
 
-//Encargado de tener Login - Register
+/* //Encargado de tener Login - Register */
 export const AuthRouter = () => {
   return (
     <div className='auth__main'>

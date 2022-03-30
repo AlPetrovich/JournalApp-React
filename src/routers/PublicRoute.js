@@ -13,8 +13,8 @@ export const PublicRoute = ({
     <Route {...rest }
         component={ (props)=>(
             ( isAuthenticated)
-            ? (<Redirect to="/" />) //si esta autenticado no es el objetivo una ruta publica
-            : (<Component {...props} />) //si quiere acceder a una ruta publica no habra problema
+            ? (<Redirect to="/" />) /* //si esta autenticado no es el objetivo una ruta publica */
+            : (<Component {...props} />) /* //si quiere acceder a una ruta publica no habra problema */
             
         )}
     />

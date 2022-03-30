@@ -9,14 +9,14 @@ import { noteLogout } from "./notes";
 export const startLoginEmailPassword=(email, password) =>{
 
     return( dispatch )=>{
-        //ui
+       /*  //ui */
         dispatch(startLoading());
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             //userCredential
             .then(({ user })=>{
                 dispatch( login( user.uid, user.displayName ));
-                //ui
+               /*  //ui */
                 dispatch( finishLoading() );
             })
             .catch( e =>{
@@ -29,14 +29,14 @@ export const startLoginEmailPassword=(email, password) =>{
 
 //Action async con email pass name
 export const startRegisterWithEmailPasswordName = (email, password, name ) =>{
-    //donde tenga el usuario grabado ya realizo el dispatch
+    /* //donde tenga el usuario grabado ya realizo el dispatch */
     return (dispatch) => {
 
-        //DEVUELVE UN PROMISE userCredential - autentica inmediatamente crea el usuario
+       /*  //DEVUELVE UN PROMISE userCredential - autentica inmediatamente crea el usuario */
         firebase.auth().createUserWithEmailAndPassword( email, password )
-            //userCredential
+           /*  //userCredential */
             .then( async({ user })=>{
-                //Grabamos displayname en userCredential ya que viene null, seteamos el enviado por parametro
+                /* //Grabamos displayname en userCredential ya que viene null, seteamos el enviado por parametro */
                 await user.updateProfile({ displayName : name })
                
                 dispatch(
@@ -54,10 +54,10 @@ export const startRegisterWithEmailPasswordName = (email, password, name ) =>{
 export const startGoogleLogin=()=>{
     return (dispatch) =>{
 
-        firebase.auth().signInWithPopup( googleAuthProvider ) //retorna una promesa
-            .then( ({ user })=>{ //user credential regresa un objeto con muchos datos acerca del usuario como el id y displayname
+        firebase.auth().signInWithPopup( googleAuthProvider )/*  //retorna una promesa */
+            .then( ({ user })=>{/*  //user credential regresa un objeto con muchos datos acerca del usuario como el id y displayname */
                 dispatch(
-                    login(user.uid, user.displayName) //id and name del usuario registrado con GOOGLE
+                    login(user.uid, user.displayName) /* //id and name del usuario registrado con GOOGLE */
                 )
             })
 
@@ -88,6 +88,6 @@ export const startLogout=()=>{
 //accion que va a borrar el uid y el displayname del STORE
 export const logout = () =>{
     return{
-        type : types.logout  //restable el usuario a un obj vacio {}
+        type : types.logout  /* //restable el usuario a un obj vacio {} */
     }
 }

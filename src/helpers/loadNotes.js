@@ -10,7 +10,7 @@ export const loadNotes = async ( uid ) =>{
        notes.push({
            id: snapHijo.id,
            ...snapHijo.data()
-           //notes -> {id,body,date,title}
+          /*  //notes -> {id,body,date,title} */
        })
    });
 

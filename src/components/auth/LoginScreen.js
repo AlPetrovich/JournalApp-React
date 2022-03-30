@@ -20,8 +20,8 @@ export const LoginScreen = () => {
 
   const handleLogin=(e)=>{
      e.preventDefault();
-     //primer dispatch de una accion a mi store -- useDispatch
-     //1ero crear la accion - agruparlas en un archivo
+     /* //primer dispatch de una accion a mi store -- useDispatch
+     //1ero crear la accion - agruparlas en un archivo */
      
     dispatch( startLoginEmailPassword( email, password) )
    }

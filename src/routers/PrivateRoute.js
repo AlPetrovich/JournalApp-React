@@ -13,7 +13,7 @@ export const PrivateRoute = ({
     <Route {...rest }
         component={ (props)=>(
             (isAuthenticated)
-            ? (<Component {...props} />) //si esta atenticado abro la pantalla que me solicita
+            ? (<Component {...props} />) /* //si esta atenticado abro la pantalla que me solicita */
             : (<Redirect to="/auth/login" />) 
         )}
     />

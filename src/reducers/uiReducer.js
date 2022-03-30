@@ -6,7 +6,7 @@ const initialState = {
     msgError : null
 }
 
-//acciones creadas en ACTIONS -------
+/* //acciones creadas en ACTIONS ------- */
 
 export const uiReducer = ( state = initialState, action ) =>{
 
@@ -15,7 +15,7 @@ export const uiReducer = ( state = initialState, action ) =>{
         case types.uiSetError:
             return{
                 ...state,
-                msgError : action.payload //mensaje de error
+                msgError : action.payload /* //mensaje de error */
             }
 
         case types.uiRemoveError:

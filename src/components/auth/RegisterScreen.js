@@ -8,12 +8,12 @@ import { startRegisterWithEmailPasswordName } from '../../actions/auth';
 
 export const RegisterScreen = () => {
 
-  //disparador de acciones
+ /*disparador de acciones */
   const dispatch = useDispatch();
 
-  //USAR UNA PARTE DEL STATE - REDUX - HOOK
-  //const state = useSelector( state => state.ui);
-  const { msgError } = useSelector( state => state.ui) //capturo mensaje del error de ui reducer del state
+  /* USAR UNA PARTE DEL STATE - REDUX - HOOK
+  const state = useSelector( state => state.ui); */
+  const { msgError } = useSelector( state => state.ui) /* capturo mensaje del error de ui reducer del state */
  
 
   const [values , handleInputChange] = useForm({
@@ -23,25 +23,25 @@ export const RegisterScreen = () => {
     password2: '123456'
   })
 
-  //variables que maneja mi formulario
+ /*  //variables que maneja mi formulario */
   const {name , email , password , password2} = values;
 
 
-  //Start register with email and password
+  /* //Start register with email and password */
   const handleRegister =(e) => {
     e.preventDefault();
     if( isFormValid() ){
       dispatch( startRegisterWithEmailPasswordName(email, password, email))
     }
   }
-
-    // ---- VALIDACIONES ---
+   
+   /*  ---- VALIDACIONES --- */
   const isFormValid = () =>{
 
     if(name.trim().length === 0){
       dispatch(setError('name is required'))
       return false;
-      //VALIDATOR
+     /*  //VALIDATOR */
     }else if ( !validator.isEmail( email ) ){
       dispatch(setError('Email is not valid'))
       return false; 
@@ -59,7 +59,6 @@ export const RegisterScreen = () => {
         <h3 className='auth__title'>Register</h3>
 
         <form onSubmit={ handleRegister } className="animate__animated animate__fadeIn animate__faster">
-                {/* si tengo mensaje lo muestro */}
             {
               msgError &&
               ( 

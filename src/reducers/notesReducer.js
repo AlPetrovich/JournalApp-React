@@ -42,7 +42,7 @@ export const notesReducer= (state = initialState, action)=>{
             
             return{
                 ...state,
-                notes: [ ...action.payload ] //establecer las notas en nuestro STORE
+                notes: [ ...action.payload ]/*  //establecer las notas en nuestro STORE */
             }
             
         case types.notesUpdated:
