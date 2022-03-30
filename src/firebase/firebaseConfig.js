@@ -7,6 +7,7 @@ import 'firebase/auth';
 const firebaseConfig = {
     apiKey: "AIzaSyA_9CCWLOg9DgjITXWyPAjZ6fwQJreCUM8",
     authDomain: "react-app-project-4f5bf.firebaseapp.com",
+    databaseURL: "https://react-app-project-4f5bf.firebaseio.com",
     projectId: "react-app-project-4f5bf",
     storageBucket: "react-app-project-4f5bf.appspot.com",
     messagingSenderId: "251280741352",
