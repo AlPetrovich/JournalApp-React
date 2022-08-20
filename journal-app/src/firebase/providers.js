@@ -65,3 +65,8 @@ export const loginWithEmailPassword = async({ email, password })=>{
         return { ok : false, errorMessage : error.message }
     }
 }
+
+export const logoutFirebase = async() =>{
+    // cierra google firebase tw, todo, uso en NavBar y no devuelve nada
+    return await FirebaseAuth.signOut();
+}
