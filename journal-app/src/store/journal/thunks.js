@@ -1,6 +1,7 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
-import { addNewEmptyNote, savingNewNote, setActiveNote } from "./journalSlice";
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from "./journalSlice";
+import { loadNotes } from "../../helpers";
 
 export const startNewNote = () => {
     return async(dispatch, getState)=>{
@@ -26,3 +27,19 @@ export const startNewNote = () => {
         
     }
 }
+
+//cargar las notas del usuario logueado
+export const startLoadingNotes = () => {
+
+    return async( dispatch, getState ) =>{
+
+        const { uid } = getState().auth;
+        if( !uid ) throw new Error('No hay usuario logueado'); //nunca debemos tener este error
+
+        const notesData = await loadNotes( uid );
+
+        dispatch( setNotes(notesData) );
+    }
+
+}
+
