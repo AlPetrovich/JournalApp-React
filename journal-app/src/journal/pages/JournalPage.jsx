@@ -1,4 +1,4 @@
-import { useDispatch  } from "react-redux";
+import { useDispatch, useSelector  } from "react-redux";
 import { AddOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { JournalLayout } from "../layout/JournalLayout";
@@ -10,6 +10,9 @@ export const JournalPage = () => {
 
   const dispatch = useDispatch();
 
+  const { isSaving , active } = useSelector(state => state.journal); //var booleana
+  
+
   const onClickNewNote = () => {
       dispatch(startNewNote());
   }
@@ -18,14 +21,13 @@ export const JournalPage = () => {
   return (
     <JournalLayout>
 
-      {/* <Typography>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam magni aliquid illum? Quae ipsa a rem repellendus exercitationem neque? Nostrum quibusdam a aliquam illum recusandae reprehenderit. Quia perspiciatis mollitia molestias?</Typography> */}
-      
-      <NothingSelectedView />
-      {/* NothinSelected */}
-      {/* <NoteView /> */}
+      {
+        (!!active )? <NoteView /> : <NothingSelectedView />
+      }
 
       {/* Boton agregar nota */}
       <IconButton
+        disabled={ isSaving }
         onClick={onClickNewNote}
         size="large"
         sx={{
