@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authSlice } from './auth';
-import { journalSlice } from './journal';
+import { journalSlice } from './journal/journalSlice';
 
 export const store = configureStore({
 
