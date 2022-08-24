@@ -1,4 +1,5 @@
 import { registerUserWithEmailPassword, signInWithGoogle, loginWithEmailPassword, logoutFirebase } from "../../firebase/providers";
+import { clearNotesLogout } from "../journal";
 import { checkingCredentials, login, logout } from "./authSlice"
 
 // tarea ASINCRONA
@@ -53,6 +54,7 @@ export const startLogout = () => {
   return async(dispatch) => {
 
     await logoutFirebase();
+    dispatch( clearNotesLogout() )
     dispatch( logout({errorMessage : null}) );
 
   }
