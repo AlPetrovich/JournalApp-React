@@ -1,7 +1,7 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
 import { addNewEmptyNote, savingNewNote, setActiveNote, setIsSaving, setNotes, updateNote } from "./journalSlice";
-import { loadNotes } from "../../helpers";
+import { fileUpload, loadNotes } from "../../helpers";
 
 export const startNewNote = () => {
     return async(dispatch, getState)=>{
@@ -58,5 +58,16 @@ export const startSaveNote = () => {
         await setDoc( docRef, noteToFireStore, { merge: true } );
 
         dispatch( updateNote(note) );
+    }
+}
+
+export const startUploadingFiles = (files = [] ) => {
+    return async (dispatch, getState) => {
+        //bloquear botones y poner app en estado de carga
+        dispatch( setIsSaving() );
+        
+        await fileUpload( files[0] );
+
+
     }
 }
